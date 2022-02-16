@@ -1,0 +1,2 @@
+
+        return stack[0];
