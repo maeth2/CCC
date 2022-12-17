@@ -8,58 +8,36 @@
 
 using namespace std;
 using ll = long long;
-int n, m, k;
 
-int check(vector<int> array){
-    int total = 0;
-    for(int i = 1; i <= n; i++){
-        for(int j = 0; j <= n - i; j++){
-            vector<bool> searched(1000000);
-            bool found = false;
-            for(int z = j; z < j + i; z++){
-                if(searched[array[z]]){
-                    found = true;
-                    break;
-                }
-                searched[array[z]] = true;
-            }
-            if(!found){
-                total++;
-            }
-        }
-    }
-    return total;
-}
+ll min(ll a, ll b){return a > b ? b : a;}
 
-int recurse(vector<int> array){
-    if(array.size() == n){
-        if(check(array) == k){
-            for(int i : array){
-                cout << i + 1 << ' ';
-            }
-            cout << " = " << k << '\n';
-            return 1;
-        }
-        else return -1;
-    }
-    for(int i = 0; i < m; i++){
-        vector<int> ar = array;
-        ar.push_back(i);
-        int t = recurse(ar);
-        if(t > 0) return t;
-    }
-    return -1;
-}
 void solve(){
-    n = 8;
-    for(m = 1; m < 10; m++){
-        cout << n << ' ' << m << '\n';
-        for(k = n; k < 40; k++){
-            vector<int> array;
-            recurse(array);
+    ll n,m,k; 
+    cin>>n>>m>>k;
+    vector<ll> ans; 
+    for(ll i=0;i<n;i++)
+    {   
+        ll rem = n-i-1;
+        ll cur = min(k-rem, m);
+        if(cur<=0) break;  
+        ll val;
+        if(cur > i)//Add distinctive number
+        {   
+            val= min(m, i + 1);
+            cur=val; 
         }
-        cout << '\n';
+        else{ //Add non-distinctive number
+            val=ans[i-cur]; 
+        }
+        ans.push_back(val);
+        k = k - cur;
     }
+    if(k==0 and (ll)ans.size()==n)
+    {
+        for(auto x: ans) cout<<x<<' '; 
+        cout<<endl; 
+    }
+    else cout<<-1<<endl;
 }
 
 int main(void){

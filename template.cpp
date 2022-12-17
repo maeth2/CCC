@@ -1,5 +1,4 @@
 /*
-
 */
 #include <iostream>
 #include <algorithm>
@@ -10,7 +9,6 @@ using namespace std;
 using ll = long long;
 
 void solve(){
-    cout << 7 / 2;
 }
 
 int main(void){
